@@ -12,7 +12,18 @@ app.get('/', function (req, res) {
 });
 
 
+// github link: https://github.com/ChangWeiHong/freecodecamp-filemetadata
 
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
+ 
+app.post('/api/fileanalyse', upload.single('upfile'), function (req, res, next) {
+  var resObj = {};
+  resObj["name"] = req.file.originalname;
+  resObj["type"] = req.file.mimetype;
+  resObj["size"] = req.file.size;
+  res.json(resObj);
+})
 
 const port = process.env.PORT || 3000;
 app.listen(port, function () {
